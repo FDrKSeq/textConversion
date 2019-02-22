@@ -1,9 +1,6 @@
-
 # Natural Language Toolkit: Kannada to KanGlish(kannada English)
 # Copyright (C) 2019 NLTK Project
 # Author: Fedrick Royston Sequeira <sroystona13@gmail.com>
-
-
 import re
 def to_Kanglish(kanWord):
     if isinstance(kanWord,list):
@@ -18,7 +15,7 @@ def to_Kanglish(kanWord):
     'ಉ':'u',
     'ಊ':'oo',
     'ಋ':'Ri',
-    'ೠ':'RI',
+    'ೠ':'R^',
     'ಌ':'Li-',
     'ೡ':'LI-',
     'ಎ':'e',
@@ -26,7 +23,7 @@ def to_Kanglish(kanWord):
     'ಐ':'ai',
     'ಒ':'o',
     'ಂ':'M',
-    'ಃ':'/H',
+    'ಃ':'/H',       
     'ಓ':'O',
     'ಔ':'au[ou]',
     'ಖ': 'kh',
@@ -48,7 +45,7 @@ def to_Kanglish(kanWord):
     'ಣ': 'N',
     'ತ': 'th',
     'ಥ': 'Th',
-    'ದ': 'dh',
+    'ದ': 'd',
     'ಧ':'Dh',
     'ನ': 'n',
     'ಪ': 'p',
@@ -69,7 +66,7 @@ def to_Kanglish(kanWord):
     'ಕ್ಷ': 'ksh',
     'ಜ್ಞ': 'j`j'}
     rule2={ 'ಾ' :'aa',
-    '್':'\'',        
+    '್':'',        
     'ಿ':'i',
     'ೀ':'ee',
     'ೕ' :'e_',
@@ -77,8 +74,28 @@ def to_Kanglish(kanWord):
     'ೂ' :'U',
     'ೃ' :'Ri',
     'ೄ' :'RI',
-    'ೢ':'Li-',
-    'ೣ':'LI-',
+    'ೢ':'n\'',
+    'ೣ':'n\'',
+    'ೆ':'h',
+    'ೇ':'E',
+    'ೈ':'ai',
+    'ೖ':'aI',
+    'ೊ':'o',
+    'ೋ':'oo',
+    'ೌ':'au',
+    'ಂ':'M',
+    'ಃ':'/H'}
+    rule3={' ':' ','ಅ':'a','ಾ' :'aa',
+    '್':'',        
+    'ಿ':'i',
+    'ೀ':'ee',
+    'ೕ' :'e_',
+    'ು' :'o',
+    'ೂ' :'oo',
+    'ೃ' :'Ri',
+    'ೄ' :'RI',
+    'ೢ':'n\'',
+    'ೣ':'n\'',
     'ೆ':'e',
     'ೇ':'E',
     'ೈ':'ai',
@@ -86,25 +103,24 @@ def to_Kanglish(kanWord):
     'ೊ':'o',
     'ೋ':'oo',
     'ೌ':'au',
-    'ಂ':'M/',
-    'ಃ':'/H'}
-    rule3={' ':' ','ಅ':'a',
+    'ಂ':'M',
+    'ಃ':'/H',
     'ಆ':'aa',
     'ಇ':'i',
     'ಈ':'ee',
     'ಉ':'u',
     'ಊ':'oo',
     'ಋ':'Ri',
-    'ೠ':'RI',
+    'ೠ':'R^',
     'ಌ':'Li-',
     'ೡ':'LI-',
     'ಎ':'e',
     'ಏ':'E',
     'ಐ':'ai',
     'ಒ':'o',
-    'ಓ':'O',
     'ಂ':'M',
-    'ಃ':'/H',
+    'ಃ':'/H',       
+    'ಓ':'O',
     'ಔ':'au[ou]',
     'ಅಂ':'aM',
     'ಅಃ':'aH',
@@ -144,7 +160,7 @@ def to_Kanglish(kanWord):
     'ಳ':'La',
     'ಱ':'Ra',
     'ಕ್ಷ':'ksha',
-    'ಜ್ಞ':'j`ja'} 
+    'ಜ್ಞ':'j`ja'}
 
     checkCh=''
     matchCh=''
@@ -157,8 +173,7 @@ def to_Kanglish(kanWord):
         count=0
         if countLen != 1:
             while countLen >=2:
-                
-                matchCh=re.findall('[\u0CBB-\u0CDD]+',kanWord[count+1])
+                matchCh=re.findall('[\u0CBA-\u0CE5]+',kanWord[count+1])
                 if matchCh:
                     if kanWord[count] in rule1 and kanWord[count+1] in rule2:
                         checkCh+=rule1[kanWord[count]]
@@ -187,7 +202,6 @@ def to_Kanglish(kanWord):
                 checkCh+=kanWord[count]
         
     return checkCh
-
 
 
 
