@@ -160,10 +160,16 @@ def to_Kanglish(kanWord):
                 
                 matchCh=re.findall('[\u0CBB-\u0CDD]+',kanWord[count+1])
                 if matchCh:
-                    checkCh+=rule1[kanWord[count]]
-                    checkCh+=rule2[kanWord[count+1]]
-                    count +=2
-                    countLen-=2
+                    if kanWord[count] in rule1 and kanWord[count+1] in rule2:
+                        checkCh+=rule1[kanWord[count]]
+                        checkCh+=rule2[kanWord[count+1]]
+                        count +=2
+                        countLen-=2
+                    else:
+                        checkCh+=kanWord[count]
+                        checkCh+=kanWord[count+1]
+                        count +=2
+                        countLen-=2
                 else:
                     if kanWord[count] in rule3:
                         checkCh+=rule3[kanWord[count]]
