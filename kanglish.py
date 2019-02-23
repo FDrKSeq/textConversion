@@ -1,14 +1,16 @@
+
 # Natural Language Toolkit: Kannada to KanGlish(kannada English)
-# Copyright (C) 2019 NLTK Project
+# Copyright (C) 2019 NLTK Project NMAMIT 
 # Author: Fedrick Royston Sequeira <sroystona13@gmail.com>
 import re
-def to_Kanglish(kanWord):
-    if isinstance(kanWord,list):
-        kanWord=kanWord
+def to_Kanglish(kannadaWords):
+    kanEng=[]
+    if isinstance(kannadaWords,list):
+        kanWords=kannadaWords
     else:
-        kanWord=[kanWord]
+        kanWords=[kannadaWords]
     
-    rule1={ 'ಕ':' k','ಅ':'a',
+    rule1={'ಕ':'k','ಅ':'a',
     'ಆ':'aa',
     'ಇ':'i',
     'ಈ':'ee',
@@ -22,8 +24,7 @@ def to_Kanglish(kanWord):
     'ಏ':'E',
     'ಐ':'ai',
     'ಒ':'o',
-    'ಂ':'M',
-    'ಃ':'/H',       
+    'ಃ':'H',       
     'ಓ':'O',
     'ಔ':'au[ou]',
     'ಖ': 'kh',
@@ -38,13 +39,10 @@ def to_Kanglish(kanWord):
     'ಟ': 't',
     'ಠ': 'T',
     'ಡ': 'd',
-    'ಢ': 'D',
-    'ಫೆ':'Fe',
-    'ಡ್ರಿ':'dri',
-    'ಕ್':'ck',        
+    'ಢ': 'D',       
     'ಣ': 'N',
-    'ತ': 'th',
-    'ಥ': 'Th',
+    'ತ': 't',
+    'ಥ': 'T',
     'ದ': 'd',
     'ಧ':'Dh',
     'ನ': 'n',
@@ -76,16 +74,15 @@ def to_Kanglish(kanWord):
     'ೄ' :'RI',
     'ೢ':'n\'',
     'ೣ':'n\'',
-    'ೆ':'h',
+    'ೆ':'e',
     'ೇ':'E',
     'ೈ':'ai',
     'ೖ':'aI',
     'ೊ':'o',
     'ೋ':'oo',
     'ೌ':'au',
-    'ಂ':'M',
-    'ಃ':'/H'}
-    rule3={' ':' ','ಅ':'a','ಾ' :'aa',
+    'ಃ':'H'}
+    rule3={' ':' ','ಾ' :'aa',
     '್':'',        
     'ಿ':'i',
     'ೀ':'ee',
@@ -100,26 +97,25 @@ def to_Kanglish(kanWord):
     'ೇ':'E',
     'ೈ':'ai',
     'ೖ':'aI',
-    'ೊ':'o',
-    'ೋ':'oo',
+    'ೊ':'O',
+    'ೋ':'Oo',
     'ೌ':'au',
     'ಂ':'M',
-    'ಃ':'/H',
-    'ಆ':'aa',
+    'ಃ':'H',
+    'ಅ':'a',
+    'ಆ':'AA',
     'ಇ':'i',
     'ಈ':'ee',
     'ಉ':'u',
     'ಊ':'oo',
     'ಋ':'Ri',
-    'ೠ':'R^',
+    'ೠ':'RI',
     'ಌ':'Li-',
     'ೡ':'LI-',
     'ಎ':'e',
     'ಏ':'E',
     'ಐ':'ai',
     'ಒ':'o',
-    'ಂ':'M',
-    'ಃ':'/H',       
     'ಓ':'O',
     'ಔ':'au[ou]',
     'ಅಂ':'aM',
@@ -139,8 +135,8 @@ def to_Kanglish(kanWord):
     'ಡ':'da',
     'ಢ':'Da',
     'ಣ':'Na', 
-    'ತ':'tha',
-    'ಥ':'Tha',
+    'ತ':'ta',
+    'ಥ':'Ta',
     'ದ':'dha',
     'ಧ':'Dha',
     'ನ':'na', 
@@ -160,50 +156,74 @@ def to_Kanglish(kanWord):
     'ಳ':'La',
     'ಱ':'Ra',
     'ಕ್ಷ':'ksha',
-    'ಜ್ಞ':'j`ja'}
-
+    'ಜ್ಞ':'j`ja',
+    '೦':'0',
+    '೧':'1',
+    '೨':'2',
+    '೩':'3',
+    '೪':'4',
+    '೫':'5',
+    '೬':'6',
+    '೭':'7',
+    '೮':'8',
+    '೯':'9'}
     checkCh=''
     matchCh=''
 
     replacedWords=''
-    for kanWord in kanWord:
+    for kanWord in kanWords:
         countLen=0
+        kanWord+=' '
+    
         checkCh=''
         countLen=len(kanWord)
         count=0
         if countLen != 1:
             while countLen >=2:
-                matchCh=re.findall('[\u0CBA-\u0CE5]+',kanWord[count+1])
-                if matchCh:
+                if kanWord[count]=='\u0C82':
+                    matchChN=re.findall('[\u0C95-\u0CA8]+',kanWord[count+1])
+                    if matchChN:
+                        
+                        checkCh+='N'
+                        count+=1
+                        countLen-=1
+                        
+                matchCh2=re.findall('[\u0CBA-\u0CE5]+',kanWord[count+1])
+                  
+                if matchCh2:
                     if kanWord[count] in rule1 and kanWord[count+1] in rule2:
                         checkCh+=rule1[kanWord[count]]
                         checkCh+=rule2[kanWord[count+1]]
                         count +=2
                         countLen-=2
+                    
                     else:
                         checkCh+=kanWord[count]
                         checkCh+=kanWord[count+1]
                         count +=2
                         countLen-=2
+                           
                 else:
                     if kanWord[count] in rule3:
                         checkCh+=rule3[kanWord[count]]
                         count +=1
                         countLen-=1
+                          
                     else:
                         checkCh+=kanWord[count]
                         count +=1
                         countLen-=1
                         
+                        
         if countLen==1:
             if kanWord[count] in rule3:
                 checkCh+=rule3[kanWord[count]]
+                   
             else:
                 checkCh+=kanWord[count]
+        kanEng.append(checkCh.strip())       
         
-    return checkCh
+    return kanEng
 
-
-
-
+              
 
