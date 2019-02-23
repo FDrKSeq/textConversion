@@ -1,0 +1,4 @@
+>>> d='''ಅದೂ ಕತ್ತೆ ಪಂಚಾಂಗ ಅಂಬೇಡ್ಕರ್ ಪಂಪ ಕಂಡ ಕಂಬ ೦೧೨ ಆ್ಯಮ್ಸ್ಟರ್ ಸಂಯುಕ್ತ ಕೊಂಕನ್ ದುಃಖ, ಸಂಕಲನದ ಚುರ್ಚಿಲ್ ಕೇಳಿರಲಿಲ್ಲ 'ಮಂಗನಂತೆ ಶ್ರೀರಂಗಪಟ್ಟಣದ ಪೌಂಡು ಕಂಬದಂತೆ ತಂದೆಯಿಂದ ಔಷಧ ಓಂ ನಮಃ  ಕೆಂಡಸಂಪಿಗೆ ಬ್ಲಾಗ್ ಸಂಸಾರ  ಅಂಶ ಸಂಯುಕ್ತ ರಂಯು ದೇವರ ಕೊಟ್ಟ ವರಾಆ ಬಣ್ಣ ಗಂನ ಅಂಗ ಅಂಗಾಂಗ ಂ ಅಂತಲೇ'''
+>>> to_Kanglish(d)
+["adU katte paNchaaNga aMbEdkar paMpa kaNda kaMba 012 aayamstar saMyukta koNkan duHkha, saNkalanadha churchil kELiralilla 'maNganaNte shreeraNgapattaNadha pauNdu kaMbadhaNte taNdeyiNdha au[ou]ShaDha OM namaH  keNdasaMpige blaag saMsaara  aMsha saMyukta raMyu dEvara kotta varaaAA baNNa gaNna aNga aNgaaNga M aNtalE"]
+>>> 
