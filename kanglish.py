@@ -5,9 +5,13 @@
 import re
 def to_Kanglish(kannadaWords):
     kanEng=[]
+    #checks whether arg is array type or string type
+    #it is made so because to accept both sentence type and array...
     if isinstance(kannadaWords,list):
+        #if true array will be array.
         kanWords=kannadaWords
     else:
+        #if false it is made as array 
         kanWords=[kannadaWords]
     
     rule1={'ಕ':'k','ಅ':'a',
@@ -171,6 +175,7 @@ def to_Kanglish(kannadaWords):
     matchCh=''
 
     replacedWords=''
+    #why array because we need to read word not character for cool performance...:)
     for kanWord in kanWords:
         countLen=0
         kanWord+=' '
@@ -179,18 +184,26 @@ def to_Kanglish(kannadaWords):
         countLen=len(kanWord)
         count=0
         if countLen != 1:
+             #checks for length, if length is greater than 1 
             while countLen >=2:
+                #checks whether first character starts from (\u0C82)/(M)/(ಂ),,,if true it checks next character i.e _+ಂ+[ಕ-ನ]
                 if kanWord[count]=='\u0C82':
+                    #next it checks whether following character is between ಕ to ನ (\u0C95-\u0CA8).
                     matchChN=re.findall('[\u0C95-\u0CA8]+',kanWord[count+1])
                     if matchChN:
-                        
+                        #if true that ಂ is replaced by N
+                        #because ಕಂಡ is spelled as kanda and ಕಂಬ as kamba
+                        #so that means next character of ಂ(M) followed by any of the character ಕ to ನ (\u0C95-\u0CA8) should spelled as N
+                        #and from ಪ to ಮ (\uCAA-\uCAE) should spelled as M
                         checkCh+='N'
                         count+=1
                         countLen-=1
-                        
+                #here it checks character + 1 is between \u0CBA-\u0CE5 (rule2 values) like ೊ ೄ...     
                 matchCh2=re.findall('[\u0CBA-\u0CE5]+',kanWord[count+1])
-                  
                 if matchCh2:
+                    #if true it will follow rule1 for character at position count and rule2 character at position count+1 
+                    #because ಕ್ಷ is spelled as ksha, it has two characters i.e ಕ and ್ಷ . in rule1 ಕ is k,  ್ಷ is sha
+                    
                     if kanWord[count] in rule1 and kanWord[count+1] in rule2:
                         checkCh+=rule1[kanWord[count]]
                         checkCh+=rule2[kanWord[count+1]]
@@ -198,28 +211,35 @@ def to_Kanglish(kannadaWords):
                         countLen-=2
                     
                     else:
+                        #if replace character is not mentioned it will place same character like english charaters or other unicode characters
+                        
                         checkCh+=kanWord[count]
                         checkCh+=kanWord[count+1]
                         count +=2
                         countLen-=2
                            
                 else:
+                    #else it follows rule 3 for position of count value only
+                    #but in rule 3 ಕ is ka
                     if kanWord[count] in rule3:
                         checkCh+=rule3[kanWord[count]]
                         count +=1
                         countLen-=1
                           
                     else:
+                        #if replace character is not mentioned it will place same character like english charaters or other unicode characters
                         checkCh+=kanWord[count]
                         count +=1
                         countLen-=1
                         
-                        
+        #if only charater is found(ignore this case because empty character is taken to avoid length issue).             
         if countLen==1:
             if kanWord[count] in rule3:
                 checkCh+=rule3[kanWord[count]]
                    
             else:
+                #if replace character is not mentioned it will place same character like english charaters or other unicode characters
+                        
                 checkCh+=kanWord[count]
         kanEng.append(checkCh.strip())       
         
