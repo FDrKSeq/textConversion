@@ -200,7 +200,7 @@ def to_Kanglish(kannadaWords):
                     #next it checks whether following character is between ಕ to ನ (\u0C95-\u0CA8).
                     matchChN=re.findall('[\u0C95-\u0CA8]+',kanWord[count+1])
                     if matchChN:
-                        #if true that ಂ is replaced by N
+                        #if true. than ಂ is replaced by N
                         #because ಕಂಡ is spelled as kanda and ಕಂಬ as kamba
                         #so that means next character of ಂ(M) followed by any of the character ಕ to ನ (\u0C95-\u0CA8) should spelled as N
                         #and from ಪ to ಮ (\uCAA-\uCAE) should spelled as M
@@ -211,7 +211,6 @@ def to_Kanglish(kannadaWords):
                 matchCh2=re.findall('[\u0CBA-\u0CE5]+',kanWord[count+1])
                 if matchCh2:
                     #if true it will follow rule1 for character at position count and rule2 character at position count+1 
-                    #because ಕ್ಷ is spelled as ksha, it has two characters i.e ಕ and ್ಷ . in rule1 ಕ is k,  ್ಷ is sha
                     
                     if kanWord[count] in rule1 and kanWord[count+1] in rule2:
                         checkCh+=rule1[kanWord[count]]
@@ -220,7 +219,7 @@ def to_Kanglish(kannadaWords):
                         countLen-=2
                     
                     else:
-                        #if replace character is not mentioned it will place same character like english charaters or other unicode characters
+                        #if character is not mentioned in rules, it will place same character. like english charaters or other unicode characters
                         
                         checkCh+=kanWord[count]
                         checkCh+=kanWord[count+1]
@@ -236,18 +235,18 @@ def to_Kanglish(kannadaWords):
                         countLen-=1
                           
                     else:
-                        #if replace character is not mentioned it will place same character like english charaters or other unicode characters
+                        #if character is not mentioned in rules, it will place same character. like english charaters or other unicode characters
                         checkCh+=kanWord[count]
                         count +=1
                         countLen-=1
                         
-        #if only charater is found(ignore this case because empty character is taken to avoid length issue).             
+        #if only 1 charater is found .             
         if countLen==1:
             if kanWord[count] in rule3:
                 checkCh+=rule3[kanWord[count]]
                    
             else:
-                #if replace character is not mentioned it will place same character like english charaters or other unicode characters
+                #if character is not mentioned in rules, it will place same character. like english charaters or other unicode characters
                         
                 checkCh+=kanWord[count]
         kanEng.append(checkCh.strip())       
