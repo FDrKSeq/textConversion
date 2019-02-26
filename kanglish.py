@@ -186,6 +186,15 @@ def to_Kanglish(kannadaWords):
         if countLen != 1:
              #checks for length, if length is greater than 1 
             while countLen >=2:
+                #checks whether first character starts from (\u0C83)/(H)/(ಃ)
+                if kanWord[count]=='\u0C83' and kanWord[count+1]==' ':
+                    checkCh+='Ha'
+                    count+=1
+                    countLen-=1
+                elif kanWord[count]=='\u0C83'and kanWord[count+1]!=' ':
+                    checkCh+='H'
+                    count+=1
+                    countLen-=1
                 #checks whether first character starts from (\u0C82)/(M)/(ಂ),,,if true it checks next character i.e _+ಂ+[ಕ-ನ]
                 if kanWord[count]=='\u0C82':
                     #next it checks whether following character is between ಕ to ನ (\u0C95-\u0CA8).
